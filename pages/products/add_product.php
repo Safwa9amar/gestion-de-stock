@@ -8,44 +8,44 @@
 
   <div class="card">
     <div class="card-body">
-      <div class="row">
+      <form action="" method="post" class="row" enctype="multipart/form-data">
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label>Product Name</label>
-            <input type="text" />
+            <input name="name" type="text" />
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label>Category</label>
-            <select class="form-control">
-              <option>Choose Category</option>
-              <option>Computers</option>
+            <select class="form-control" name="category">
+              <?php
+              $all_categories = getAllCategories();
+              while ($category = mysqli_fetch_assoc($all_categories)) {
+                echo "<option value='" . $category['id'] . "'>" . $category['name'] . "</option>";
+              }
+              ?>
             </select>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12">
-          <div class="form-group">
-            <label>Sub Category</label>
-            <select class="form-control">
-              <option>Choose Sub Category</option>
-              <option>Fruits</option>
-            </select>
-          </div>
-        </div>
+
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label>Brand</label>
-            <select class="form-control">
-              <option>Choose Brand</option>
-              <option>Brand</option>
+            <select class="form-control" name="brand">
+              <?php
+              $all_brands = getAllBrands();
+              while ($brand = mysqli_fetch_assoc($all_brands)) {
+                echo "<option value='" . $brand['id'] . "'>" . $brand['name'] . "</option>";
+              }
+              ?>
             </select>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label>Unit</label>
-            <select class="form-control">
+            <select class="form-control" name="unit">
               <option>Choose Unit</option>
               <option>Unit</option>
             </select>
@@ -54,56 +54,34 @@
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label>SKU</label>
-            <input type="text" />
+            <input type="text" name="sku" />
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12">
-          <div class="form-group">
-            <label>Minimum Qty</label>
-            <input type="text" />
-          </div>
-        </div>
+
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label>Quantity</label>
-            <input type="text" />
+            <input type="text" name="qty" />
           </div>
         </div>
         <div class="col-lg-12">
           <div class="form-group">
             <label>Description</label>
-            <textarea class="form-control"></textarea>
+            <textarea class="form-control" name="description"></textarea>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12">
-          <div class="form-group">
-            <label>Tax</label>
-            <select class="form-control">
-              <option>Choose Tax</option>
-              <option>2%</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-12">
-          <div class="form-group">
-            <label>Discount Type</label>
-            <select class="form-control">
-              <option>Percentage</option>
-              <option>10%</option>
-              <option>20%</option>
-            </select>
-          </div>
-        </div>
+
+
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label>Price</label>
-            <input type="text" />
+            <input type="text" name="price" />
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label> Status</label>
-            <select class="form-control">
+            <select class="form-control" name="status">
               <option>Closed</option>
               <option>Open</option>
             </select>
@@ -113,7 +91,7 @@
           <div class="form-group">
             <label> Product Image</label>
             <div class="image-upload">
-              <input type="file" />
+              <input type="file" name="img" />
               <div class="image-uploads">
                 <img src="assets/img/icons/upload.svg" alt="img" />
                 <h4>Drag and drop a file to upload</h4>
@@ -122,10 +100,106 @@
           </div>
         </div>
         <div class="col-lg-12">
-          <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
-          <a href="productlist.html" class="btn btn-cancel">Cancel</a>
+          <?php
+          include 'includes/database.php';
+          include 'includes/config.php';
+          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // insert data into database
+            $name = $_POST['name'];
+            $category = $_POST['category'];
+            $brand = $_POST['brand'];
+            $unit = $_POST['unit'];
+            $sku = $_POST['sku'];
+            $qty = $_POST['qty'];
+            $description = $_POST['description'];
+            $price = $_POST['price'];
+            $status = $_POST['status'];
+            $img = $_POST['img'];
+            $sql = "INSERT INTO products (name, category, brand, unit, SKU, qty, description, price, status, img) VALUES ('$name', '$category', '$brand', '$unit', '$sku', '$qty', '$description', '$price', '$status', '$img')";
+            echo $_FILES['img'];
+
+            $is_file_uploded = uploadImg($_FILES['img'], $product_upload_dir);
+
+            if ($is_file_uploded == 1) {
+              echo '
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Erreur</strong> , veuillez réessayer ! la taille de l\'image est trop grande
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              ';
+            } else if ($is_file_uploded == 2 || $is_file_uploded == 3) {
+              echo '
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Erreur</strong> , veuillez réessayer ! le fichier n\'est pas une image
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              ';
+            } else {
+              $result = mysqli_query($connection, $sql);
+
+
+              if ($result) {
+                // copy image to uploads folder
+
+                echo '
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Produit ajouté avec succès</strong> , vous pouvez ajouter un autre produit !
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              ';
+              } else {
+                echo '
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Erreur</strong> , veuillez réessayer !
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              ';
+              }
+            }
+          }
+
+          ?>
+          <button class="btn btn-submit me-2">Submit</button>
+          <a href="?page=produits&sub_page=list_product" class="btn btn-cancel">Cancel</a>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
+<!-- jquery -->
+<!-- <script src="assets/js/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".btn-submit").click(function () {
+      var name = $("input[name=name]").val();
+      var category = $("select[name=category]").val();
+      var brand = $("select[name=brand]").val();
+      var unit = $("select[name=unit]").val();
+      var sku = $("input[name=sku]").val();
+      var qty = $("input[name=qty]").val();
+      var description = $("textarea[name=description]").val();
+      var price = $("input[name=price]").val();
+      var status = $("select[name=status]").val();
+      var img = $("input[name=img]").val();
+      $.ajax({
+        url: "pages/products/add_product.php",
+        type: "POST",
+        data: {
+          name: name,
+          category: category,
+          brand: brand,
+          unit: unit,
+          sku: sku,
+          qty: qty,
+          description: description,
+          price: price,
+          status: status,
+          img: img,
+        },
+        success: function (data) {
+          console.log(data);
+        },
+      });
+    });
+  });
+</script> -->

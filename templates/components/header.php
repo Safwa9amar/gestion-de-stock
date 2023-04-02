@@ -8,9 +8,11 @@
     <title>
         <?php
         if (isset($_GET['page'])) {
-            echo $_GET['page'];
+            // capitalize first letter
+            $page = ucfirst($_GET['page']);
+            echo $page;
         } else {
-            echo "gestion de stock SBA";
+            echo "Gestion de stock SBA";
         }
         ?>
     </title>

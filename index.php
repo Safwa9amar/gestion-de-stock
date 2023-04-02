@@ -1,7 +1,8 @@
 <?php
-include 'includes/db_conn.php';
+include 'includes/database.php';
 include 'includes/goTopage.php';
 include 'includes/config.php';
+include 'includes/functions.php';
 ?>
 
 <!DOCTYPE html>
