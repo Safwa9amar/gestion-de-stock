@@ -1,12 +1,7 @@
 <?php
 $table_head = '
   <tr>
-      <th>
-          <label class="checkboxs">
-              <input type="checkbox" id="select-all">
-              <span class="checkmarks"></span>
-          </label>
-      </th>
+     
       <th>Product Name</th>
       <th>SKU</th>
       <th>Category </th>
@@ -21,12 +16,7 @@ $table_head = '
 
 $table_body = '
 <tr>
-                <td>
-                    <label class="checkboxs">
-                        <input type="checkbox">
-                        <span class="checkmarks"></span>
-                    </label>
-                </td>
+              
                 <td class="productimgname">
                     <a href="javascript:void(0);" class="product-img">
                         <img src="assets/img/product/product1.jpg" alt="product">
@@ -60,6 +50,13 @@ $table_body = '
     <div class="page-title">
       <h4>Product List</h4>
       <h6>Manage your products</h6>
+      <?php
+      require './vendor/autoload.php';
+
+      // This will output the barcode as HTML output to display in the browser
+      $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+      echo $generator->getBarcode('PT001', $generator::TYPE_CODE_128);
+      ?>
     </div>
     <div class="page-btn">
       <a href="?page=produits&sub_page=add_product" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img"

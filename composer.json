@@ -6,5 +6,8 @@
         "psr-4": {
             "GestionDeStock\\Astro\\": "src/"
         }
+    },
+    "require": {
+        "picqer/php-barcode-generator": "^2.2"
     }
 }
