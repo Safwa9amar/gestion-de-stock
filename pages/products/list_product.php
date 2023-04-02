@@ -1,4 +1,7 @@
 <?php
+// include product list query
+include_once 'includes/queries/product_list.php';
+
 $table_head = '
   <tr>
      
@@ -43,6 +46,8 @@ $table_body = '
                 </td>
             </tr>
 ';
+
+
 ?>
 
 <div class="content">
@@ -50,17 +55,10 @@ $table_body = '
     <div class="page-title">
       <h4>Product List</h4>
       <h6>Manage your products</h6>
-      <?php
-      require './vendor/autoload.php';
 
-      // This will output the barcode as HTML output to display in the browser
-      $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
-      echo $generator->getBarcode('PT001', $generator::TYPE_CODE_128);
-      ?>
     </div>
     <div class="page-btn">
-      <a href="?page=produits&sub_page=add_product" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img"
-          class="me-1">Add New Product</a>
+      <a href="?page=produits&sub_page=add_product" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img" class="me-1">Add New Product</a>
     </div>
   </div>
 
@@ -81,16 +79,13 @@ $table_body = '
         <div class="wordset">
           <ul>
             <li>
-              <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg"
-                  alt="img"></a>
+              <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg" alt="img"></a>
             </li>
             <li>
-              <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg"
-                  alt="img"></a>
+              <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
             </li>
             <li>
-              <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg"
-                  alt="img"></a>
+              <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg" alt="img"></a>
             </li>
           </ul>
         </div>
