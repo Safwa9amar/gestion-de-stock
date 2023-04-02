@@ -1,0 +1,10 @@
+{
+    "name": "gestion_de_stock/astro",
+    "description": "this aaplication is created to manage products stock in algeria, for studing porposes only",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "GestionDeStock\\Astro\\": "src/"
+        }
+    }
+}
