@@ -1,0 +1,4 @@
+ErrorDocument 404 /stock/error_404.php
+
+# Prevent directory listings
+Options -Indexes
