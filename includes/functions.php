@@ -48,12 +48,13 @@ function uploadImg($img,$img_destination)
     $allowed = array('jpg', 'jpeg', 'png');
 
     if (in_array($img_actual_ext, $allowed)) {
+        // check if file type is allowed
         if ($img_error === 0) {
             if ($img_size < 1000000) {
-                $img_new_name = uniqid('', true) . "." . $img_actual_ext;
-                $img_destination = $img_destination . $img_new_name;
-                move_uploaded_file($img_tmp_name, $img_destination);
-                return $img_destination;
+                $img_new_name = uniqid('') . "." . $img_actual_ext;
+                $new_img_destination = $img_destination . $img_new_name;
+                move_uploaded_file($img_tmp_name, $new_img_destination);
+                return $img_new_name;
             } else {
                 // echo "Your file is too big!";
                 echo 1;

@@ -114,47 +114,46 @@
             $description = $_POST['description'];
             $price = $_POST['price'];
             $status = $_POST['status'];
-            $img = $_POST['img'];
-            $sql = "INSERT INTO products (name, category, brand, unit, SKU, qty, description, price, status, img) VALUES ('$name', '$category', '$brand', '$unit', '$sku', '$qty', '$description', '$price', '$status', '$img')";
-            echo $_FILES['img'];
-
-            $is_file_uploded = uploadImg($_FILES['img'], $product_upload_dir);
-
-            if ($is_file_uploded == 1) {
+            $imgUploaded = uploadImg($_FILES['img'], $product_upload_dir);
+            $sql = "INSERT INTO products (name, category, brand, unit, SKU, qty, description, price, status, img) VALUES ('$name', '$category', '$brand', '$unit', '$sku', '$qty', '$description', '$price', '$status', '$imgUploaded')";
+            $result = mysqli_query($connection, $sql);
+            echo $imgUploaded;
+            if ($imgUploaded == 1) {
               echo '
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                   <strong>Erreur</strong> , veuillez réessayer ! la taille de l\'image est trop grande
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
               ';
-            } else if ($is_file_uploded == 2 || $is_file_uploded == 3) {
+            } else if ($imgUploaded == 3) {
               echo '
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                   <strong>Erreur</strong> , veuillez réessayer ! le fichier n\'est pas une image
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
               ';
-            } else {
-              $result = mysqli_query($connection, $sql);
-
-
-              if ($result) {
-                // copy image to uploads folder
-
-                echo '
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <strong>Produit ajouté avec succès</strong> , vous pouvez ajouter un autre produit !
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-              ';
-              } else {
-                echo '
+            } else if ($imgUploaded == 2) {
+              echo '
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Erreur</strong> , veuillez réessayer !
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               ';
-              }
+            } else if ($result) {
+
+              echo '
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Produit ajouté avec succès</strong> , vous pouvez ajouter un autre produit !
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            ';
+            } else {
+              echo '
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Erreur</strong> , veuillez réessayer !
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              ';
             }
           }
 
