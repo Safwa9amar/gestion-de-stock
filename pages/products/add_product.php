@@ -44,11 +44,9 @@
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Unit</label>
-            <select class="form-control" name="unit">
-              <option>Choose Unit</option>
-              <option>Unit</option>
-            </select>
+            <label>Unité</label>
+            <input type="text" name="unit" />
+
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
@@ -82,8 +80,8 @@
           <div class="form-group">
             <label> Status</label>
             <select class="form-control" name="status">
-              <option>Closed</option>
-              <option>Open</option>
+              <option value='1'>Disponible</option>
+              <option value='0'>Non disponible</option>
             </select>
           </div>
         </div>
@@ -114,10 +112,10 @@
             $description = htmlspecialchars($_POST['description']);
             $price = htmlspecialchars($_POST['price']);
             $status = htmlspecialchars($_POST['status']);
-            
+            //insert data into database using addRow function
+
             $imgUploaded = uploadImg($_FILES['img'], $product_upload_dir);
-            $sql = "INSERT INTO products (name, category, brand, unit, SKU, qty, description, price, status, img) VALUES ('$name', '$category', '$brand', '$unit', '$sku', '$qty', '$description', '$price', '$status', '$imgUploaded')";
-            
+
             switch ($imgUploaded) {
               case 1:
                 alert("veuillez réessayer ! la taille de l'image est trop grande", "danger");
@@ -129,7 +127,18 @@
                 alert("veuillez réessayer ! le fichier n'est pas une image", "danger");
                 break;
               default:
-                $result = mysqli_query($connection, $sql);
+                $result = addRow("products", [
+                  "name" => $name,
+                  "category" => $category,
+                  "brand" => $brand,
+                  "unit" => $unit,
+                  "SKU" => $sku,
+                  "qty" => $qty,
+                  "description" => $description,
+                  "price" => $price,
+                  "status" => $status,
+                  "img" => $imgUploaded
+                ]);
                 if ($result) {
                   alert("Produit ajouté avec succès", "success");
                 } else {

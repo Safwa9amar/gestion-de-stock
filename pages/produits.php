@@ -23,6 +23,9 @@ if (isset($_GET['sub_page'])) {
      elseif ($page == "edit_product") {
         include "products/action/edit.php";
     } 
+     elseif ($page == "product_details") {
+        include "products/product_details.php";
+    } 
     else {
         include "404_box.php";
     }

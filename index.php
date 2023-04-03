@@ -35,5 +35,4 @@ include 'includes/functions.php';
         </div>
 </body>
 <?php include 'templates/components/scripts.php'; ?>
-
 </html>

@@ -64,6 +64,25 @@ function editRow($table, array $data, $id)
     return $result;
 }
 
+// add row
+function addRow($table, array $data)
+{
+    include 'includes/database.php';
+    $query = "INSERT INTO $table (";
+    foreach ($data as $key => $value) {
+        $query .= "$key, ";
+    }
+    $query = substr($query, 0, -2);
+    $query .= ") VALUES (";
+    foreach ($data as $key => $value) {
+        $query .= "'$value', ";
+    }
+    $query = substr($query, 0, -2);
+    $query .= ")";
+    $result = mysqli_query($connection, $query);
+    return $result;
+}
+
 function uploadImg($img, $img_destination)
 {
     $img_name = $img['name'];

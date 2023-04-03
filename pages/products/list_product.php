@@ -78,7 +78,7 @@ $table_head = '
               <?php echo $row["created_by"] ?>
             </td>
             <td>
-              <a class="me-3" href="product-details.html">
+              <a class="me-3" href="?page=produits&sub_page=product_details&id=<?php echo $row['id'] ?>">
                 <img src="assets/img/icons/eye.svg" alt="img">
               </a>
               <a class="me-3" href="?page=produits&sub_page=edit_product&id=<?php echo $row['id'] ?>">

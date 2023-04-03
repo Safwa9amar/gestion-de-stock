@@ -5,6 +5,7 @@ $pages = [
     'ventes',
     'achats',
     'clients',
+    'profile',
     'settings',
 ];
 

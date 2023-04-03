@@ -17,7 +17,6 @@ if (isset($_GET['id']) && $is_logged) {
     $brand = getBrand($product_brand);
     // get category
     $category = getCategory($product_category);
-
 }
 
 
@@ -33,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
     $product_description = $_POST['product_description'];
     $product_img = $_FILES['product_img'];
     $product_status = $_POST['product_status'];
-
+    if (!empty($product_img['name'])) {
+        $imgUploaded = uploadImg($product_img, $product_upload_dir);
+    }
     $data = [
         'name' => $product_name,
         'SKU' => $product_sku,
@@ -43,12 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
         'price' => $product_price,
         'qty' => $product_quantity,
         'description' => $product_description,
-        'img' => $product_img['name'] ?? $product_image,
+        'img' => $imgUploaded ?? $product_image,
         'status' => $product_status,
     ];
-    if ($product_img['name'] != "") {
-        $imgUploaded = uploadImg($product_img, $product_upload_dir);
-    }
+
 
     switch ($imgUploaded ?? 0) {
         case 1:
@@ -64,9 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
         default:
             $result = editRow('products', $data, $product_id);
             if ($result) {
-                alert("Produit ajouté avec succès", "success");
-                // check if the image is not empty
-                if ($product_img['name'] != "") {
+                alert("Produit edité avec succès", "success");
+                if (!empty($product_img['name'])) {
                     // delete the old image
                     unlink($product_upload_dir . $product_image);
                 }
@@ -75,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
             }
             break;
     }
-
 }
 ?>
 
@@ -111,11 +108,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                             while ($row = mysqli_fetch_assoc($all_categories)) {
 
                                 if ($product_category != $row['id']) {
-                                    ?>
+                            ?>
                                     <option value="<?php echo $row['id'] ?>">
                                         <?php echo $row['name'] ?>
                                     </option>
-                                    <?php
+                            <?php
                                 }
                             }
 
@@ -137,11 +134,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                             // loop through all categories
                             while ($row = mysqli_fetch_assoc($all_brands)) {
                                 if ($product_brand != $row['id']) {
-                                    ?>
+                            ?>
                                     <option value="<?php echo $row['id'] ?>">
                                         <?php echo $row['name'] ?>
                                     </option>
-                                    <?php
+                            <?php
                                 }
                             }
 
@@ -171,8 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea name="product_description"
-                            class="form-control"><?php echo $product_description ?></textarea>
+                        <textarea name="product_description" class="form-control"><?php echo $product_description ?></textarea>
 
                     </div>
                 </div>
@@ -214,12 +210,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                                 <div class="productviews">
                                     <div class="productviewsimg">
                                         <img src="<?php
-                                        if ($product_image == '') {
-                                            echo 'assets/img/icons/upload.svg';
-                                        } else {
-                                            echo $product_upload_dir . $product_image;
-                                        }
-                                        ?>" alt="img">
+                                                    if ($product_image == '') {
+                                                        echo 'assets/img/icons/upload.svg';
+                                                    } else {
+                                                        echo $product_upload_dir . $product_image;
+                                                    }
+                                                    ?>" alt="img">
 
                                     </div>
                                     <div class="productviewscontent">
