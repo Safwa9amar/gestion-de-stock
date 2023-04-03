@@ -80,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
 <div class="content">
     <div class="page-header">
         <div class="page-title">
-            <h4>Product Edit</h4>
-            <h6>Update your product</h6>
+            <h4>Modification de produit</h4>
+            <h6>Modifiez votre produit</h6>
         </div>
     </div>
 
@@ -90,29 +90,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
             <form method="post" class="row" enctype="multipart/form-data">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Product Name</label>
+                        <label>Nom du produit</label>
                         <input type="text" name="product_name" value="<?php echo $product_name ?>">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Category</label>
+                        <label>Catégorie</label>
                         <select class="form-control" name="category">
                             <option selected value="<?php echo $product_category ?>">
                                 <?php echo $category['name'] ?>
                             </option>
                             <?php
-                            // get all categories
+                            // récupérer toutes les catégories
                             $all_categories = getAllCategories();
-                            // loop through all categories
+                            // boucler à travers toutes les catégories
                             while ($row = mysqli_fetch_assoc($all_categories)) {
 
                                 if ($product_category != $row['id']) {
-                            ?>
+                                    ?>
                                     <option value="<?php echo $row['id'] ?>">
                                         <?php echo $row['name'] ?>
                                     </option>
-                            <?php
+                                    <?php
                                 }
                             }
 
@@ -123,22 +123,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
 
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Brand</label>
+                        <label>Marque</label>
                         <select class="form-control" name="brand">
                             <option selected value="<?php echo $product_brand ?>">
                                 <?php echo $brand['name'] ?>
                             </option>
                             <?php
-                            // get all categories
+                            // récupérer toutes les marques
                             $all_brands = getAllBrands();
-                            // loop through all categories
+                            // boucler à travers toutes les marques
                             while ($row = mysqli_fetch_assoc($all_brands)) {
                                 if ($product_brand != $row['id']) {
-                            ?>
+                                    ?>
                                     <option value="<?php echo $row['id'] ?>">
                                         <?php echo $row['name'] ?>
                                     </option>
-                            <?php
+                                    <?php
                                 }
                             }
 
@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>unit</label>
+                        <label>Unité</label>
                         <input type="text" name="product_unit" value="<?php echo $product_unit ?>">
                     </div>
                 </div>
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Quantity</label>
+                        <label>Quantité</label>
                         <input type="text" name="product_quantity" value="<?php echo $product_quantity ?>">
                     </div>
                 </div>
@@ -168,14 +168,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea name="product_description" class="form-control"><?php echo $product_description ?></textarea>
+                        <textarea name="product_description"
+                            class="form-control"><?php echo $product_description ?></textarea>
 
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Price</label>
+                        <label>Prix</label>
                         <input type="text" name="product_price" value="<?php echo $product_price ?>">
                     </div>
                 </div>
@@ -193,12 +194,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                 </div>
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <label> Product Image</label>
+                        <label> Produit Image</label>
                         <div class="image-upload">
                             <input type="file" name="product_img">
                             <div class="image-uploads">
                                 <img src="assets/img/icons/upload.svg" alt="img">
-                                <h4>Drag and drop a file to upload</h4>
+                                <h4>Glisser et déposer un fichier à télécharger</h4>
                             </div>
                         </div>
                     </div>
@@ -210,12 +211,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                                 <div class="productviews">
                                     <div class="productviewsimg">
                                         <img src="<?php
-                                                    if ($product_image == '') {
-                                                        echo 'assets/img/icons/upload.svg';
-                                                    } else {
-                                                        echo $product_upload_dir . $product_image;
-                                                    }
-                                                    ?>" alt="img">
+                                        if ($product_image == '') {
+                                            echo 'assets/img/icons/upload.svg';
+                                        } else {
+                                            echo $product_upload_dir . $product_image;
+                                        }
+                                        ?>" alt="img">
 
                                     </div>
                                     <div class="productviewscontent">
@@ -232,8 +233,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <button class="btn btn-submit me-2">Update</button>
-                    <a href="?page=produits&sub_page=list_product" class="btn btn-cancel">Cancel</a>
+                    <button class="btn btn-submit me-2">Mettre à jour</button>
+                    <a href="?page=produits&sub_page=list_product" class="btn btn-cancel">Annuler</a>
                 </div>
         </div>
     </div>

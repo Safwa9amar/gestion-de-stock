@@ -41,6 +41,14 @@ function getProduct($id)
     $product = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $product;
 }
+// get category by id
+function getCategoryById($id)
+{
+    include 'includes/database.php';
+    $query = "SELECT * FROM categories WHERE id = '$id'";
+    $category = mysqli_fetch_assoc(mysqli_query($connection, $query));
+    return $category;
+}
 // function that deletes a row from a table
 function deleteRow($table, $id)
 {

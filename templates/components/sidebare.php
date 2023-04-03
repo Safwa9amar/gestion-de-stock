@@ -23,7 +23,7 @@ $sub_page = $_GET['sub_page'] ?? '';
               <a href="?page=produits&sub_page=add_product" class="<?php echo $sub_page == 'add_product' ? 'active' : '' ?>">Ajouter un produit</a>
             </li>
             <li>
-              <a href="?page=produits&sub_page=list_categories" class="<?php echo $sub_page == 'list_categories' ? 'active' : '' ?>">Liste des catégories</a>
+              <a href="?page=produits&sub_page=list_categories" class="<?php echo $sub_page == 'list_categories' || $sub_page == 'edit_category' ? 'active' : '' ?>">Liste des catégories</a>
             </li>
             <li>
               <a href="?page=produits&sub_page=add_category" class="<?php echo $sub_page == 'add_category' ? 'active' : '' ?>">ajouter une catégorie</a>

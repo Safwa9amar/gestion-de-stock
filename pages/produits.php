@@ -11,6 +11,9 @@ if (isset($_GET['sub_page'])) {
      elseif ($page == "list_categories") {
         include "products/list_categories.php";
     } 
+     elseif ($page == "edit_category") {
+        include "products/action/edit_category.php";
+    } 
      elseif ($page == "add_category") {
         include "products/add_category.php";
     } 
