@@ -33,8 +33,38 @@ function getCategory($category_id)
     return $category;
 }
 
+// get product by id
+function getProduct($id)
+{
+    include 'includes/database.php';
+    $query = "SELECT * FROM products WHERE id = '$id'";
+    $product = mysqli_fetch_assoc(mysqli_query($connection, $query));
+    return $product;
+}
+// function that deletes a row from a table
+function deleteRow($table, $id)
+{
+    include 'includes/database.php';
+    $query = "DELETE FROM $table WHERE id = '$id'";
+    $result = mysqli_query($connection, $query);
+    return $result;
+}
 
-function uploadImg($img,$img_destination)
+// edit row
+function editRow($table, array $data, $id)
+{
+    include 'includes/database.php';
+    $query = "UPDATE $table SET ";
+    foreach ($data as $key => $value) {
+        $query .= "$key = '$value', ";
+    }
+    $query = substr($query, 0, -2);
+    $query .= " WHERE id = '$id'";
+    $result = mysqli_query($connection, $query);
+    return $result;
+}
+
+function uploadImg($img, $img_destination)
 {
     $img_name = $img['name'];
     $img_tmp_name = $img['tmp_name'];
@@ -46,25 +76,33 @@ function uploadImg($img,$img_destination)
     $img_actual_ext = strtolower(end($img_ext));
 
     $allowed = array('jpg', 'jpeg', 'png');
+    // check if file is not empty
+    if (!empty($img_name)) {
 
-    if (in_array($img_actual_ext, $allowed)) {
-        // check if file type is allowed
-        if ($img_error === 0) {
-            if ($img_size < 1000000) {
-                $img_new_name = uniqid('') . "." . $img_actual_ext;
-                $new_img_destination = $img_destination . $img_new_name;
-                move_uploaded_file($img_tmp_name, $new_img_destination);
-                return $img_new_name;
+        if (in_array($img_actual_ext, $allowed)) {
+            // check if file type is allowed
+            if ($img_error === 0) {
+                if ($img_size < 1000000) {
+                    $img_new_name = uniqid('') . "." . $img_actual_ext;
+                    $new_img_destination = $img_destination . $img_new_name;
+                    move_uploaded_file($img_tmp_name, $new_img_destination);
+                    // unlink old image using tornary operator
+                    
+                    return $img_new_name;
+                } else {
+                    // echo "Your file is too big!";
+                    return 1;
+                }
             } else {
-                // echo "Your file is too big!";
-                echo 1;
+                // echo "There was an error uploading your file!";
+                return 2;
             }
         } else {
-            // echo "There was an error uploading your file!";
-            echo 2;
+            // echo "You cannot upload files of this type!";
+            return 3;
         }
     } else {
-        // echo "You cannot upload files of this type!";
-        echo 3;
+        // echo "Please select a file!";
+        return 4;
     }
 }

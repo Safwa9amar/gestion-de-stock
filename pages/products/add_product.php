@@ -105,58 +105,39 @@
           include 'includes/config.php';
           if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // insert data into database
-            $name = $_POST['name'];
-            $category = $_POST['category'];
-            $brand = $_POST['brand'];
-            $unit = $_POST['unit'];
-            $sku = $_POST['sku'];
-            $qty = $_POST['qty'];
-            $description = $_POST['description'];
-            $price = $_POST['price'];
-            $status = $_POST['status'];
+            $name = htmlspecialchars($_POST['name']);
+            $category = htmlspecialchars($_POST['category']);
+            $brand = htmlspecialchars($_POST['brand']);
+            $unit = htmlspecialchars($_POST['unit']);
+            $sku = htmlspecialchars($_POST['sku']);
+            $qty = htmlspecialchars($_POST['qty']);
+            $description = htmlspecialchars($_POST['description']);
+            $price = htmlspecialchars($_POST['price']);
+            $status = htmlspecialchars($_POST['status']);
+            
             $imgUploaded = uploadImg($_FILES['img'], $product_upload_dir);
             $sql = "INSERT INTO products (name, category, brand, unit, SKU, qty, description, price, status, img) VALUES ('$name', '$category', '$brand', '$unit', '$sku', '$qty', '$description', '$price', '$status', '$imgUploaded')";
-            $result = mysqli_query($connection, $sql);
-            echo $imgUploaded;
-            if ($imgUploaded == 1) {
-              echo '
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <strong>Erreur</strong> , veuillez réessayer ! la taille de l\'image est trop grande
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-              ';
-            } else if ($imgUploaded == 3) {
-              echo '
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <strong>Erreur</strong> , veuillez réessayer ! le fichier n\'est pas une image
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-              ';
-            } else if ($imgUploaded == 2) {
-              echo '
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Erreur</strong> , veuillez réessayer !
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              ';
-            } else if ($result) {
-
-              echo '
-              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Produit ajouté avec succès</strong> , vous pouvez ajouter un autre produit !
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            ';
-            } else {
-              echo '
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Erreur</strong> , veuillez réessayer !
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              ';
+            
+            switch ($imgUploaded) {
+              case 1:
+                alert("veuillez réessayer ! la taille de l'image est trop grande", "danger");
+                break;
+              case 2:
+                alert("veuillez réessayer ! le fichier n'a pas été téléchargé", "danger");
+                break;
+              case 3:
+                alert("veuillez réessayer ! le fichier n'est pas une image", "danger");
+                break;
+              default:
+                $result = mysqli_query($connection, $sql);
+                if ($result) {
+                  alert("Produit ajouté avec succès", "success");
+                } else {
+                  alert("Echec d'ajout du produit", "danger");
+                }
+                break;
             }
           }
-
           ?>
           <button class="btn btn-submit me-2">Submit</button>
           <a href="?page=produits&sub_page=list_product" class="btn btn-cancel">Cancel</a>

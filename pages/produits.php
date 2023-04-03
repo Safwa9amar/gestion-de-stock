@@ -20,6 +20,9 @@ if (isset($_GET['sub_page'])) {
      elseif ($page == "add_marques") {
         include "products/add_marques.php";
     } 
+     elseif ($page == "edit_product") {
+        include "products/action/edit.php";
+    } 
     else {
         include "404_box.php";
     }

@@ -1,5 +1,11 @@
 <?php
 include_once 'includes/queries/product_list.php';
+include 'includes/config.php';
+if (isset($_GET['deleteRow']) && $is_logged) {
+  $id = $_GET['deleteRow'];
+  deleteRow('products', $id);
+  echo "<script>window.location.href='?page=produits&sub_page=list_product'</script>";
+}
 
 $table_head = '
   <tr>
@@ -40,52 +46,52 @@ $table_head = '
           $brand = getBrand($row["brand"]);
           // get category 
           $category = getCategory($row["category"]);
-      ?>
-      <tr>
-        <td class="productimgname">
-          <a href="javascript:void(0);" class="product-img">
-            <img src="<?php echo $row["img"] ?>" alt="product">
-          </a>
-          <a href="javascript:void(0);">
-            <?php echo $row["name"] ?>
-          </a>
-        </td>
-        <td>
-          <?php echo $row["SKU"] ?>
-        </td>
-        <td>
-          <?php echo $category["name"] ?>
-        </td>
-        <td>
-          <?php echo $brand["name"] ?>
-        </td>
-        <td>
-          <?php echo $row["price"] ?>
-        </td>
-        <td>
-          <?php echo $row["unit"] ?>
-        </td>
-        <td>
-          <?php echo $row["qty"] ?>
-        </td>
-        <td>
-          <?php echo $row["created_by"] ?>
-        </td>
-        <td>
-          <a class="me-3" href="product-details.html">
-            <img src="assets/img/icons/eye.svg" alt="img">
-          </a>
-          <a class="me-3" href="editproduct.html">
-            <img src="assets/img/icons/edit.svg" alt="img">
-          </a>
-          <a class="confirm-text" href="javascript:void(0);">
-            <img src="assets/img/icons/delete.svg" alt="img">
-          </a>
-        </td>
-      </tr>
-      <?php
+          ?>
+          <tr>
+            <td class="productimgname">
+              <a href="javascript:void(0);" class="product-img">
+                <img src="<?php echo $product_upload_dir . $row["img"] ?>" alt="product">
+              </a>
+              <a href="javascript:void(0);">
+                <?php echo $row["name"] ?>
+              </a>
+            </td>
+            <td>
+              <?php echo $row["SKU"] ?>
+            </td>
+            <td>
+              <?php echo $category["name"] ?>
+            </td>
+            <td>
+              <?php echo $brand["name"] ?>
+            </td>
+            <td>
+              <?php echo $row["price"] ?>
+            </td>
+            <td>
+              <?php echo $row["unit"] ?>
+            </td>
+            <td>
+              <?php echo $row["qty"] ?>
+            </td>
+            <td>
+              <?php echo $row["created_by"] ?>
+            </td>
+            <td>
+              <a class="me-3" href="product-details.html">
+                <img src="assets/img/icons/eye.svg" alt="img">
+              </a>
+              <a class="me-3" href="?page=produits&sub_page=edit_product&id=<?php echo $row['id'] ?>">
+                <img src="assets/img/icons/edit.svg" alt="img">
+              </a>
+              <a class="confirm-text" href="?page=produits&sub_page=list_product&deleteRow=<?php echo $row['id'] ?>">
+                <img src="assets/img/icons/delete.svg" alt="img">
+              </a>
+            </td>
+          </tr>
+          <?php
         }
-      } 
+      }
       ?>
       <?php include 'templates/components/list_table_footer.php'; ?>
     </div>
