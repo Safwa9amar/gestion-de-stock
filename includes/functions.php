@@ -133,3 +133,29 @@ function uploadImg($img, $img_destination)
         return 4;
     }
 }
+
+
+// generate cvs file from database
+function generateCSV($table)
+{
+    include 'includes/database.php';
+    $query = "SELECT * FROM $table";
+    $result = mysqli_query($connection, $query);
+    $num_fields = mysqli_num_fields($result);
+    $headers = array();
+    for ($i = 0; $i < $num_fields; $i++) {
+        $headers[] = mysqli_fetch_field_direct($result, $i)->name;
+    }
+    $fp = fopen('php://output', 'w');
+    if ($fp && $result) {
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="'.$table.'.csv"');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        fputcsv($fp, $headers);
+        while ($row = mysqli_fetch_row($result)) {
+            fputcsv($fp, array_values($row));
+        }
+        die;
+    }
+}

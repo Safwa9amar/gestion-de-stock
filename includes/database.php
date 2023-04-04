@@ -1,5 +1,4 @@
 <?php
-// connect to mysqli 
 $user = "root";
 $password = '';
 $host = "localhost";

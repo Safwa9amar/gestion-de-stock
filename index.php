@@ -4,8 +4,12 @@ include 'includes/goTopage.php';
 include 'includes/config.php';
 include 'includes/alert.php';
 include 'includes/functions.php';
-?>
+if (isset($_GET['export']) && $_GET['export'] == 'csv') {
+    generateCSV('categories');
+    exit;
+}
 
+?>
 <!DOCTYPE html>
 <?php include 'templates/components/header.php'; ?>
 
@@ -14,8 +18,10 @@ include 'includes/functions.php';
         <div class="whirly-loader"> </div>
     </div>
     <div class="main-wrapper">
-        <?php include 'templates/components/navbar.php'; ?>
-        <?php include 'templates/components/sidebare.php'; ?>
+        <?php
+        include 'templates/components/navbar.php';
+        include 'templates/components/sidebare.php';
+        ?>
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <?php
@@ -35,4 +41,6 @@ include 'includes/functions.php';
         </div>
 </body>
 <?php include 'templates/components/scripts.php'; ?>
+<?php ob_end_flush(); ?>
+
 </html>

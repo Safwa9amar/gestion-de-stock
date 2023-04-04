@@ -14,6 +14,8 @@ $table_head = '
         <th>Action</th>
     </tr>
     ';
+// csv
+
 ?>
 <div class="content">
     <div class="page-header">
@@ -45,7 +47,7 @@ $table_head = '
                         <tr>
                             <td class="productimgname">
                                 <a href="javascript:void(0);" class="product-img">
-                                    <img src="<?php echo $category_upload_dir . $category['img'];?>" alt="product">
+                                    <img src="<?php echo $category_upload_dir . $category['img']; ?>" alt="product">
                                 </a>
                                 <a href="javascript:void(0);">
                                     <?php echo $category_name ?>
