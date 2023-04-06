@@ -24,6 +24,50 @@ function getAllCategories()
     $categories = mysqli_query($connection, $query);
     return $categories;
 }
+// get all clients
+function getAllClients()
+{
+    include 'includes/database.php';
+    $query = "SELECT * FROM clients";
+    $clients = mysqli_query($connection, $query);
+    return $clients;
+}
+
+// get client by id
+function getClient($id)
+{
+    include 'includes/database.php';
+    $query = "SELECT * FROM clients WHERE id = '$id'";
+    $client = mysqli_fetch_assoc(mysqli_query($connection, $query));
+    return $client;
+}
+
+// get all achats
+function getAllAchats()
+{
+    include 'includes/database.php';
+    $query = "SELECT * FROM achats";
+    $achats = mysqli_query($connection, $query);
+    return $achats;
+}
+
+
+// get all wilayat
+function getAllWilayat()
+{
+    include 'includes/database.php';
+    $query = "SELECT * FROM wilayat";
+    $wilayat = mysqli_query($connection, $query);
+    return $wilayat;
+}
+// get wilayat by id
+function getWilayaById($wilayat_id)
+{
+    include 'includes/database.php';
+    $query = "SELECT name FROM wilayat WHERE id = '$wilayat_id'";
+    $wilayat = mysqli_fetch_assoc(mysqli_query($connection, $query));
+    return $wilayat;
+}
 
 function getCategory($category_id)
 {
@@ -103,7 +147,15 @@ function uploadImg($img, $img_destination)
     $img_actual_ext = strtolower(end($img_ext));
 
     $allowed = array('jpg', 'jpeg', 'png');
+    // check if directory exists
+    $directory = "path/to/directory"; // Replace with the path to the directory you want to check/create
+
+    if (!is_dir($img_destination)) {
+        mkdir($img_destination, 0777, true); // Creates the directory with full permissions
+    } 
+
     // check if file is not empty
+
     if (!empty($img_name)) {
 
         if (in_array($img_actual_ext, $allowed)) {
@@ -114,7 +166,7 @@ function uploadImg($img, $img_destination)
                     $new_img_destination = $img_destination . $img_new_name;
                     move_uploaded_file($img_tmp_name, $new_img_destination);
                     // unlink old image using tornary operator
-                    
+
                     return $img_new_name;
                 } else {
                     // echo "Your file is too big!";
@@ -149,7 +201,7 @@ function generateCSV($table)
     $fp = fopen('php://output', 'w');
     if ($fp && $result) {
         header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="'.$table.'.csv"');
+        header('Content-Disposition: attachment; filename="' . $table . '.csv"');
         header('Pragma: no-cache');
         header('Expires: 0');
         fputcsv($fp, $headers);
