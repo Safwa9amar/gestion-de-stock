@@ -112,6 +112,7 @@ include 'includes/config.php';
                             if ($result) {
                                 alert("Client ajouté avec succès", "success");
                             } else {
+                                // if error echo error
                                 alert("Erreur lors de l'ajout du client", "danger");
                             }
                             break;

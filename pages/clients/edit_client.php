@@ -11,6 +11,8 @@ if (isset($_GET['id']) && $is_logged) {
         $city = $client['city'];
         $address = $client['address'];
         $code = $client['code'];
+        $img = $client['img'];
+
     }
 }
 
@@ -27,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
     if (!empty($client_img['name'])) {
         $client_img = uploadImg($client_img, $clients_upload_dir);
     }
-
+    echo !is_numeric($client_img) ? $client_img : $client['img'];
     switch ($client_img ?? 0) {
         case 1:
             alert("Veuillez réessayer ! La taille de l'image est trop grande", "danger");
@@ -39,17 +41,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
             alert("Veuillez réessayer ! L'image n'a pas été téléchargée", "danger");
             break;
         default:
+
             $result = editRow(
                 'clients',
-                [
-                    'name' => $name,
-                    'mail' => $email,
-                    'phone' => $phone,
-                    'city' => $city,
-                    'address' => $address,
-                    'code' => $code,
-                    'img' => !is_numeric($client_img) ? $client_img : $client['img']
-                ],
+                compareData(
+                    array(
+                        'name' => $name,
+                        'mail' => $email,
+                        'code' => $code,
+                        'phone' => $phone,
+                        'city' => $city,
+                        'address' => $address,
+                        'img' => !is_numeric($client_img) ? $client_img : $client['img']
+                    ),
+                    $client
+                ),
                 $id
             );
             if ($result) {
@@ -109,15 +115,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                             <option value="<?php echo $city ?>" selected>
                                 <?php echo getWilayaById($city)['name'] ?>
                             </option>
-                            <option>
-                                <!-- get all wilaya -->
-                                <?php
-                                $wilayas = getAllWilayat();
-                                foreach ($wilayas as $wilaya) {
-                                    echo "<option value='" . $wilaya['id'] . "'>" . $wilaya['code'] . '-' . $wilaya['name'] . "</option>";
-                                }
-                                ?>
-                            </option>
+                            <!-- get all wilaya -->
+                            <?php
+                            $wilayas = getAllWilayat();
+                            foreach ($wilayas as $wilaya) {
+                                echo "<option value='" . $wilaya['id'] . "'>" . $wilaya['code'] . '-' . $wilaya['name'] . "</option>";
+                            }
+                            ?>
                         </select>
                     </div>
                 </div>
@@ -134,15 +138,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
                             <input name="img" type="file">
                             <div class="image-uploads">
                                 <img class="avatar" src="<?php
-                                if (!empty($client['img'])) {
-                                    echo $clients_upload_dir . $client['img'];
-                                } else if (!empty($client_img)) {
-                                    echo $clients_upload_dir . $client_img;
-                                } else {
-                                    echo $clients_upload_dir . 'default.png';
-                                }
+                                                            if (!empty($client['img'])) {
+                                                                echo $clients_upload_dir . $client['img'];
+                                                            } else if (!empty($client_img)) {
+                                                                echo $clients_upload_dir . $client_img;
+                                                            } else {
+                                                                echo $clients_upload_dir . 'default.png';
+                                                            }
 
-                                ?>" alt="img">
+                                                            ?>" alt="img">
                                 <h4>Faites glisser un fichier pour le télécharger</h4>
                             </div>
                         </div>

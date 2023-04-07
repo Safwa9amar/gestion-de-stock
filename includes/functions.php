@@ -115,6 +115,18 @@ function editRow($table, array $data, $id)
     $result = mysqli_query($connection, $query);
     return $result;
 }
+// compare old data with new data to see if there are any changes and return the changes
+function compareData($old_data, $new_data)
+{
+    $changes = array();
+    foreach ($old_data as $key => $value) {
+        if ($value != $new_data[$key]) {
+            $changes[$key] = $new_data[$key];
+        }
+    }
+    return $changes;
+}
+
 
 // add row
 function addRow($table, array $data)

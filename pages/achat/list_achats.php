@@ -12,7 +12,7 @@ $table_head = '
                 <th>Reference</th>
                 <th>Date</th>
                 <th>Status</th>
-                <th>Grand Total</th>
+                <th>Grand_Total</th>
                 <th>Paid</th>
                 <th>Due</th>
                 <th>Payment Status</th>
@@ -44,14 +44,14 @@ $table_head = '
                     // loop through all_achats
                     while ($achat = mysqli_fetch_assoc($all_achats)) {
                         $achat_id = $achat['id'];
-                        $achat_supplier = $achat['fournisseur'];
+                        $achat_supplier = $achat['Supplier'];
                         $achat_reference = $achat['Reference'];
                         $achat_date = $achat['Date'];
                         $achat_status = $achat['Status'];
-                        $achat_grand_total = $achat['Grand Total'];
+                        $achat_grand_total = $achat['Grand_Total'];
                         $achat_paid = $achat['Paid'];
                         $achat_due = $achat['Due'];
-                        $achat_payment_status = $achat['Payment Status'];
+                        $achat_payment_status = $achat['Payment_Status'];
 
                         ?>
                         <tr>
