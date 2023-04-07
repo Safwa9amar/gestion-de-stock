@@ -76,15 +76,41 @@ function getCategory($category_id)
     $category = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $category;
 }
-
+// get all products
+function getAllProducts()
+{
+    include '../includes/database.php';
+    $query = "SELECT * FROM products";
+    $products = mysqli_fetch_all(mysqli_query($connection, $query), MYSQLI_ASSOC);  
+    return $products;
+}
 // get product by id
 function getProduct($id)
 {
-    include 'includes/database.php';
+    include '../includes/database.php';
     $query = "SELECT * FROM products WHERE id = '$id'";
     $product = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $product;
 }
+
+// getRowById
+function getRowById($table, $id)
+{
+    include '../includes/database.php';
+    $query = "SELECT * FROM $table WHERE id = '$id'";
+    $row = mysqli_fetch_assoc(mysqli_query($connection, $query));
+    return $row;
+}
+// get all rows from a table
+function getAllRows($table)
+{
+    include '../includes/database.php';
+    $query = "SELECT * FROM $table";
+    // fetch all rows from the table
+    $rows = mysqli_fetch_all(mysqli_query($connection, $query), MYSQLI_ASSOC);
+    return $rows;
+}
+
 // get category by id
 function getCategoryById($id)
 {

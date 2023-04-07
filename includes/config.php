@@ -12,3 +12,5 @@ $category_upload_dir    = './assets/img/categories/';
 $clients_upload_dir    = './assets/img/clients/';
 
 $is_logged = true;
+
+$api = '/api/?route=';

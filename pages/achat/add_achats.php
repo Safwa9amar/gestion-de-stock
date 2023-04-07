@@ -1,3 +1,6 @@
+<?php
+include 'includes/config.php';
+?>
 <div class="content">
     <div class="page-header">
         <div class="page-title">
@@ -13,10 +16,11 @@
                         <label>Supplier Name</label>
                         <div class="row">
                             <div class="col-lg-10 col-sm-10 col-10">
-                                <select class="form-control">
+                                <input class="form-control" list="suppliers" type="text">
+                                <datalist id="suppliers">
                                     <option>Select</option>
                                     <option>Supplier</option>
-                                </select>
+                                </datalist>
                             </div>
                             <div class="col-lg-2 col-sm-2 col-2 ps-0">
                                 <div class="add-icon">
@@ -37,15 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>Product Name</label>
-                        <select class="form-control">
-                            <option>Choose</option>
-                            <option>Supplier Name</option>
-                        </select>
-                    </div>
-                </div>
+
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
                         <label>Reference No.</label>
@@ -56,10 +52,14 @@
                     <div class="form-group">
                         <label>Product Name</label>
                         <div class="input-groupicon">
-                            <input type="text" placeholder="Scan/Search Product by code and select...">
+                            <input autofocus list="datalistOptions" id="search_product" type="text"
+                                placeholder="Scan/Search Product by code and select...">
                             <div class="addonset">
                                 <img src="assets/img/icons/scanners.svg" alt="img">
                             </div>
+                            <datalist id='datalistOptions'>
+
+                            </datalist>
                         </div>
                     </div>
                 </div>
@@ -188,3 +188,52 @@
         </div>
     </div>
 </div>
+<!-- Jquery -->
+<script>
+    // fetch api for product search
+    document.getElementById('search_product').onkeydown = function () {
+
+        let url = "<?php echo $api . 'products' ?>"
+        var search = this.value;
+        var outer = document.getElementById('datalistOptions');
+        // clear the list
+        if (search.length > 0) {
+            fetch(url + '&search=' + search)
+                .then(response => response.json())
+                .then(data => {
+                    var html = '';
+                    data.forEach(function (item) {
+                        html += `<option value="${item.id}"> ${item.name} ${item.SKU} </option> `;
+                    });
+                    outer.innerHTML = html;
+                    this.onchange = function () {
+                        data = data.filter(item => item.id == this.value)[0]
+                        // create a new tr element
+                        var tr = document.createElement('tr');
+                        // set the innerHTML of the tr element
+                        tr.innerHTML = `
+                            <td>
+                                <a class="product-img">
+                                    <img src="<?php echo $product_upload_dir ?>${data.img}" alt="product">
+                                </a>
+                                <a href="javascript:void(0);">${data.name}</a>
+                            </td>
+                            <td>
+                                ${data.qty}
+                            </td>
+                            <td>
+                                ${data.price}
+                            </td>
+                            
+                        `
+                        // append the tr element to the tbody
+                        document.querySelector('.table tbody').appendChild(tr);
+
+                    }
+                })
+            outer.innerHTML = '';
+
+        }
+    }
+
+</script>

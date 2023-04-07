@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'gestion_de_stock/astro',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => 'f77d6e58b0bc27e1cc70054e449d3900dfc8c317',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => NULL,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'gestion_de_stock/astro' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => 'f77d6e58b0bc27e1cc70054e449d3900dfc8c317',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => NULL,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

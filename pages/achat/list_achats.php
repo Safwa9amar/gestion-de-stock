@@ -2,7 +2,7 @@
 include 'includes/config.php';
 if (isset($_GET['deleteRow']) && $is_logged) {
     $id = $_GET['deleteRow'];
-    deleteRow('clients', $id);
+    deleteRow('achatst', $id);
     echo "<script>window.location.href='?page=achats&sub_page=list_achats'</script>";
 }
 $all_achats = getAllAchats();
@@ -96,7 +96,8 @@ $table_head = '
                                 <a class="me-3" href="editpurchase.html">
                                     <img src="assets/img/icons/edit.svg" alt="img">
                                 </a>
-                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                <a class="me-3 confirm-text"href="?page=achats&sub_page=list_achats&deleteRow=<?php echo $achat_id; ?>"
+                                >
                                     <img src="assets/img/icons/delete.svg" alt="img">
                                 </a>
                             </td>

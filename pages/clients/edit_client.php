@@ -26,10 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
     $code = htmlspecialchars($_POST['code']);
     $client_img = $_FILES['img'];
 
-    if (!empty($client_img['name'])) {
+    if (!empty($client_img)) {
         $client_img = uploadImg($client_img, $clients_upload_dir);
     }
-    echo !is_numeric($client_img) ? $client_img : $client['img'];
     switch ($client_img ?? 0) {
         case 1:
             alert("Veuillez réessayer ! La taille de l'image est trop grande", "danger");
@@ -44,17 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_logged) {
 
             $result = editRow(
                 'clients',
-                compareData(
-                    array(
-                        'name' => $name,
-                        'mail' => $email,
-                        'code' => $code,
-                        'phone' => $phone,
-                        'city' => $city,
-                        'address' => $address,
-                        'img' => !is_numeric($client_img) ? $client_img : $client['img']
-                    ),
-                    $client
+                array(
+                    'name' => $name,
+                    'mail' => $email,
+                    'code' => $code,
+                    'phone' => $phone,
+                    'city' => $city,
+                    'address' => $address,
+                    'img' => !is_numeric($client_img) ? $client_img : $client['img']
                 ),
                 $id
             );
