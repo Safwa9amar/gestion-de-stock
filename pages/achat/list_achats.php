@@ -2,7 +2,7 @@
 include 'includes/config.php';
 if (isset($_GET['deleteRow']) && $is_logged) {
     $id = $_GET['deleteRow'];
-    deleteRow('achatst', $id);
+    deleteRow('achats', $id);
     echo "<script>window.location.href='?page=achats&sub_page=list_achats'</script>";
 }
 $all_achats = getAllAchats();
@@ -13,9 +13,6 @@ $table_head = '
                 <th>Date</th>
                 <th>Status</th>
                 <th>Grand_Total</th>
-                <th>Paid</th>
-                <th>Due</th>
-                <th>Payment Status</th>
                 <th>Action</th>
         </tr>
     ';
@@ -49,15 +46,12 @@ $table_head = '
                         $achat_date = $achat['Date'];
                         $achat_status = $achat['Status'];
                         $achat_grand_total = $achat['Grand_Total'];
-                        $achat_paid = $achat['Paid'];
-                        $achat_due = $achat['Due'];
-                        $achat_payment_status = $achat['Payment_Status'];
 
                         ?>
                         <tr>
 
                             <td class="text-bolds">
-                                <?php echo $achat_supplier; ?>
+                                <?php echo  getRowById('fournisseurs', $achat_supplier)['name'];?>
                             </td>
                             <td>
                                 <?php echo $achat_reference; ?>
@@ -77,27 +71,14 @@ $table_head = '
                             <td>
                                 <?php echo $achat_grand_total; ?>
                             </td>
+
+
                             <td>
-                                <?php echo $achat_paid; ?>
-                            </td>
-                            <td>
-                                <?php echo $achat_due; ?>
-                            </td>
-                            <td>
-                                <?php
-                                if ($achat_payment_status) {
-                                    badge('lightgreen', 'Payé');
-                                } else {
-                                    badge('lightred', 'En attente');
-                                }
-                                ?>
-                            </td>
-                            <td>
-                                <a class="me-3" href="editpurchase.html">
+                                <a class="me-3" href="?page=achats&sub_page=edit_achat&editRow=<?php echo $achat_id; ?>">
                                     <img src="assets/img/icons/edit.svg" alt="img">
                                 </a>
-                                <a class="me-3 confirm-text"href="?page=achats&sub_page=list_achats&deleteRow=<?php echo $achat_id; ?>"
-                                >
+                                <a class="me-3 confirm-text"
+                                    href="?page=achats&sub_page=list_achats&deleteRow=<?php echo $achat_id; ?>">
                                     <img src="assets/img/icons/delete.svg" alt="img">
                                 </a>
                             </td>

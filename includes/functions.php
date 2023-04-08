@@ -1,7 +1,19 @@
 <?php
+
+// cehck if server request url is api function
+function isApi($url)
+{
+    $url = explode('/', $url);
+    if ($url[1] == 'api') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function getBrand($brand_id)
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT name FROM brands WHERE id = '$brand_id'";
     $brand = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $brand;
@@ -10,7 +22,7 @@ function getBrand($brand_id)
 // get all brands
 function getAllBrands()
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM brands";
     $brands = mysqli_query($connection, $query);
     return $brands;
@@ -19,7 +31,7 @@ function getAllBrands()
 // get all categories
 function getAllCategories()
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM categories";
     $categories = mysqli_query($connection, $query);
     return $categories;
@@ -27,7 +39,7 @@ function getAllCategories()
 // get all clients
 function getAllClients()
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM clients";
     $clients = mysqli_query($connection, $query);
     return $clients;
@@ -36,7 +48,7 @@ function getAllClients()
 // get client by id
 function getClient($id)
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM clients WHERE id = '$id'";
     $client = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $client;
@@ -45,7 +57,7 @@ function getClient($id)
 // get all achats
 function getAllAchats()
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM achats";
     $achats = mysqli_query($connection, $query);
     return $achats;
@@ -55,7 +67,7 @@ function getAllAchats()
 // get all wilayat
 function getAllWilayat()
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM wilayat";
     $wilayat = mysqli_query($connection, $query);
     return $wilayat;
@@ -63,7 +75,7 @@ function getAllWilayat()
 // get wilayat by id
 function getWilayaById($wilayat_id)
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT name FROM wilayat WHERE id = '$wilayat_id'";
     $wilayat = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $wilayat;
@@ -71,7 +83,10 @@ function getWilayaById($wilayat_id)
 
 function getCategory($category_id)
 {
-    include 'includes/database.php';
+
+    isApi($_SERVER['REQUEST_URI'])
+        ? include '../includes/database.php'
+        : include 'includes/database.php';
     $query = "SELECT name FROM categories WHERE id = '$category_id'";
     $category = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $category;
@@ -79,15 +94,15 @@ function getCategory($category_id)
 // get all products
 function getAllProducts()
 {
-    include '../includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM products";
-    $products = mysqli_fetch_all(mysqli_query($connection, $query), MYSQLI_ASSOC);  
+    $products = mysqli_fetch_all(mysqli_query($connection, $query), MYSQLI_ASSOC);
     return $products;
 }
 // get product by id
 function getProduct($id)
 {
-    include '../includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM products WHERE id = '$id'";
     $product = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $product;
@@ -96,7 +111,7 @@ function getProduct($id)
 // getRowById
 function getRowById($table, $id)
 {
-    include '../includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM $table WHERE id = '$id'";
     $row = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $row;
@@ -104,7 +119,9 @@ function getRowById($table, $id)
 // get all rows from a table
 function getAllRows($table)
 {
-    include '../includes/database.php';
+    // check if api in url directory
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
+
     $query = "SELECT * FROM $table";
     // fetch all rows from the table
     $rows = mysqli_fetch_all(mysqli_query($connection, $query), MYSQLI_ASSOC);
@@ -114,15 +131,18 @@ function getAllRows($table)
 // get category by id
 function getCategoryById($id)
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "SELECT * FROM categories WHERE id = '$id'";
     $category = mysqli_fetch_assoc(mysqli_query($connection, $query));
     return $category;
 }
+
+
+
 // function that deletes a row from a table
 function deleteRow($table, $id)
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "DELETE FROM $table WHERE id = '$id'";
     $result = mysqli_query($connection, $query);
     return $result;
@@ -131,7 +151,7 @@ function deleteRow($table, $id)
 // edit row
 function editRow($table, array $data, $id)
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) ? include '../includes/database.php' : include 'includes/database.php';
     $query = "UPDATE $table SET ";
     foreach ($data as $key => $value) {
         $query .= "$key = '$value', ";
@@ -157,7 +177,9 @@ function compareData($old_data, $new_data)
 // add row
 function addRow($table, array $data)
 {
-    include 'includes/database.php';
+    isApi($_SERVER['REQUEST_URI']) 
+        ? include '../includes/database.php' 
+        : include 'includes/database.php';
     $query = "INSERT INTO $table (";
     foreach ($data as $key => $value) {
         $query .= "$key, ";
@@ -171,6 +193,21 @@ function addRow($table, array $data)
     $query .= ")";
     $result = mysqli_query($connection, $query);
     return $result;
+}
+
+// reference generator function
+function generateReference($table, $column)
+{
+    include 'includes/database.php';
+    $query = "SELECT $column FROM $table ORDER BY id DESC LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    $row = mysqli_fetch_assoc($result);
+    $reference = $row[$column];
+    $reference = substr($reference, 1);
+    $reference = (int) $reference;
+    $reference++;
+    $reference = "REF " . $reference;
+    return $reference;
 }
 
 function uploadImg($img, $img_destination)
@@ -190,7 +227,7 @@ function uploadImg($img, $img_destination)
 
     if (!is_dir($img_destination)) {
         mkdir($img_destination, 0777, true); // Creates the directory with full permissions
-    } 
+    }
 
     // check if file is not empty
 
