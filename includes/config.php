@@ -13,4 +13,8 @@ $clients_upload_dir    = './assets/img/clients/';
 
 $is_logged = true;
 
-$api = '/api/?route=';
+// CURRENCY SETTINGS
+$currency = 'DZD';
+
+
+$api = './api/?route=';

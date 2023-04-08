@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2023 at 02:44 AM
+-- Generation Time: Apr 08, 2023 at 02:47 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -147,7 +147,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `category`, `brand`, `SKU`, `unit`, `qty`, `price`, `status`, `img`, `description`, `created_by`) VALUES
 (1, 'Pizza Base Tomate', 1, 1, 'f321321', 'Unit', 100, 100, 0, '642ae822777ab.jpg', 'zae aze aze aze', 'admin'),
-(2, 'Salades', 1, 1, 'f321321', 'Choose Unit', 50, 1500, 0, '642aebb8aebfd.jpg', 'qweqweqwe', 'admin');
+(2, 'Salades', 1, 1, 'f321321', 'Choose Unit', 50, 1500, 0, '642aebb8aebfd.jpg', 'qweqweqwe', 'admin'),
+(3, 'Raclette 33cm', 1, 1, 'aze', 'kg', 20, 150, 1, '64308d062623e.jpg', 'AZZEAE', 'admin');
 
 -- --------------------------------------------------------
 
@@ -313,7 +314,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sales`

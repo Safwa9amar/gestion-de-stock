@@ -13,10 +13,10 @@ include 'includes/config.php';
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Supplier Name</label>
+                        <label>Fournisseur</label>
                         <div class="row">
                             <div class="col-lg-10 col-sm-10 col-10">
-                                <input class="form-control" list="suppliers" type="text">
+                                <input class="form-control" list="suppliers" type="text" />
                                 <datalist id="suppliers">
                                     <option>Select</option>
                                     <option>Supplier</option>
@@ -24,7 +24,7 @@ include 'includes/config.php';
                             </div>
                             <div class="col-lg-2 col-sm-2 col-2 ps-0">
                                 <div class="add-icon">
-                                    <a href="javascript:void(0);"><img src="assets/img/icons/plus1.svg" alt="img"></a>
+                                    <a href="javascript:void(0);"><img src="assets/img/icons/plus1.svg" alt="img" /></a>
                                 </div>
                             </div>
                         </div>
@@ -34,9 +34,9 @@ include 'includes/config.php';
                     <div class="form-group">
                         <label>Purchase Date </label>
                         <div class="input-groupicon">
-                            <input type="text" placeholder="DD-MM-YYYY" class="datepicker">
+                            <input type="text" placeholder="DD-MM-YYYY" class="datepicker" />
                             <div class="addonset">
-                                <img src="assets/img/icons/calendars.svg" alt="img">
+                                <img src="assets/img/icons/calendars.svg" alt="img" />
                             </div>
                         </div>
                     </div>
@@ -45,24 +45,32 @@ include 'includes/config.php';
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
                         <label>Reference No.</label>
-                        <input type="text">
+                        <input type="text" />
                     </div>
                 </div>
-                <div class="col-lg-12 col-sm-6 col-12">
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control">
+                            <option>Choose Status</option>
+                            <option>Complété</option>
+                            <option>En cours</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
                         <label>Product Name</label>
                         <div class="input-groupicon">
-                            <input autofocus list="datalistOptions" id="search_product" type="text"
-                                placeholder="Scan/Search Product by code and select...">
+                            <input autofocus list="datalistOptions" id="search_product" type="text" placeholder="Scan/Search Product by code and select..." />
                             <div class="addonset">
-                                <img src="assets/img/icons/scanners.svg" alt="img">
+                                <img src="assets/img/icons/scanners.svg" alt="img" />
                             </div>
-                            <datalist id='datalistOptions'>
-
-                            </datalist>
+                            <datalist id="datalistOptions"> </datalist>
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="table-responsive">
@@ -71,51 +79,13 @@ include 'includes/config.php';
                             <tr>
                                 <th>Product Name</th>
                                 <th>QTY</th>
-                                <th>Purchase Price($) </th>
-                                <th>Discount($) </th>
-                                <th>Tax %</th>
-                                <th>Tax Amount($)</th>
-                                <th class="text-end">Unit Cost($)</th>
-                                <th class="text-end">Total Cost ($) </th>
-                                <th></th>
+                                <th>Purchase Price(<?php echo $currency ?>)</th>
+                                <th class="text-end">Total Cost (<?php echo $currency ?>)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="productimgname">
-                                    <a class="product-img">
-                                        <img src="assets/img/product/product7.jpg" alt="product">
-                                    </a>
-                                    <a href="javascript:void(0);">Apple Earpods</a>
-                                </td>
-                                <td>10.00</td>
-                                <td>2000.00</td>
-                                <td>500.00</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td class="text-end">2000.00</td>
-                                <td class="text-end">2000.00</td>
-                                <td>
-                                    <a class="delete-set"><img src="assets/img/icons/delete.svg" alt="svg"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="productimgname">
-                                    <a class="product-img">
-                                        <img src="assets/img/product/product6.jpg" alt="product">
-                                    </a>
-                                    <a href="javascript:void(0);">Macbook Pro</a>
-                                </td>
-                                <td>15.00</td>
-                                <td>6000.00</td>
-                                <td>100.00</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td class="text-end">1000.00</td>
-                                <td class="text-end">1000.00</td>
-                                <td>
-                                    <a class="delete-set"><img src="assets/img/icons/delete.svg" alt="svg"></a>
-                                </td>
+                            <tr id="tr_placehoder">
+                                <td colspan="4">Vous n'avez ajouté aucune donnée</td>
                             </tr>
                         </tbody>
                     </table>
@@ -125,63 +95,17 @@ include 'includes/config.php';
                 <div class="col-lg-12 float-md-right">
                     <div class="total-order">
                         <ul>
-                            <li>
-                                <h4>Order Tax</h4>
-                                <h5>$ 0.00 (0.00%)</h5>
-                            </li>
-                            <li>
-                                <h4>Discount </h4>
-                                <h5>$ 0.00</h5>
-                            </li>
-                            <li>
-                                <h4>Shipping</h4>
-                                <h5>$ 0.00</h5>
-                            </li>
                             <li class="total">
                                 <h4>Grand Total</h4>
-                                <h5>$ 0.00</h5>
+                                <h5 id="grand_total">0.00 <?php echo $currency ?></h5>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>Order Tax</label>
-                        <input type="text">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>Discount</label>
-                        <input type="text">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>Shipping</label>
-                        <input type="text">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>Status</label>
-                        <select class="form-control">
-                            <option>Choose Status</option>
-                            <option>Completed</option>
-                            <option>Inprogress</option>
-                        </select>
-                    </div>
-                </div>
                 <div class="col-lg-12">
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea class="form-control"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
+                    <button onclick="addPurchase();" class="btn btn-submit me-2">Submit</button>
                     <a href="purchaselist.html" class="btn btn-cancel">Cancel</a>
                 </div>
             </div>
@@ -190,50 +114,138 @@ include 'includes/config.php';
 </div>
 <!-- Jquery -->
 <script>
-    // fetch api for product search
-    document.getElementById('search_product').onkeydown = function () {
+    function addPurchase() {
+        var data = getDataFromTable(document.querySelector(".table tbody")).filter(function(row) {
+            return row.qty != "" && row.product_id != "";
+        });
+        console.log(data);
+    }
 
-        let url = "<?php echo $api . 'products' ?>"
+    // tr_placehoder
+    var tr_placehoder = document.getElementById("tr_placehoder");
+
+    // calculTotalCost function
+
+    function calculTotalCost(qty, purchase_price, id) {
+        var total_cost = qty * purchase_price;
+        document.getElementById(`total_cost_${id}`).textContent = total_cost;
+        console.log(getDataFromTable(document.querySelector(".table tbody")));
+        // grand_total
+        var grand_total = 0;
+        var rows = document.querySelectorAll(".table tbody tr");
+        rows.forEach(function(row) {
+            var cols = row.querySelectorAll("td");
+            cols.forEach(function(col, index) {
+                if (index == 3) {
+                    grand_total += parseFloat(col.textContent);
+                }
+            });
+        });
+        document.getElementById("grand_total").textContent = grand_total;
+
+    }
+
+    function getDataFromTable(table) {
+        var data = [];
+        var rows = table.querySelectorAll("tr");
+        rows.forEach(function(row) {
+            var cols = row.querySelectorAll("td");
+            var obj = {};
+            console.log(cols);
+            cols.forEach(function(col, index) {
+                if (index == 0) {
+                    obj["product_id"] = col.id;
+                }
+                if (index == 1) {
+                    obj["qty"] = col.querySelector("td input").value;
+                }
+                if (index == 2) {
+                    obj["purchase_price"] = cols[2].innerText;
+                }
+                if (index == 3) {
+                    obj["total_cost"] = cols[3].innerText;
+                }
+            });
+            data.push(obj);
+        });
+        return data;
+    }
+
+    // fetch api for product search
+    document.getElementById("search_product").onkeydown = function() {
+        let url = "<?php echo $api . 'products' ?>";
         var search = this.value;
-        var outer = document.getElementById('datalistOptions');
+        var outer = document.getElementById("datalistOptions");
         // clear the list
         if (search.length > 0) {
-            fetch(url + '&search=' + search)
-                .then(response => response.json())
-                .then(data => {
-                    var html = '';
-                    data.forEach(function (item) {
+            tr_placehoder.style.display = "none";
+            fetch(url + "&search=" + search)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    var html = "";
+                    data.forEach(function(item) {
                         html += `<option value="${item.id}"> ${item.name} ${item.SKU} </option> `;
                     });
                     outer.innerHTML = html;
-                    this.onchange = function () {
-                        data = data.filter(item => item.id == this.value)[0]
+                    this.onchange = function() {
+                        data = data.filter((item) => item.id == this.value)[0];
                         // create a new tr element
-                        var tr = document.createElement('tr');
+                        var tr = document.createElement("tr");
+                        tr.id = data.id;
                         // set the innerHTML of the tr element
                         tr.innerHTML = `
-                            <td>
+                            <td id='${data.id}'>
                                 <a class="product-img">
                                     <img src="<?php echo $product_upload_dir ?>${data.img}" alt="product">
                                 </a>
-                                <a href="javascript:void(0);">${data.name}</a>
+                                ${data.name}
                             </td>
                             <td>
-                                ${data.qty}
+                                <input 
+                                type="number"
+                                value="0"
+                                class="form-control"
+                                min="1" max="250"
+                                style="width: 100px;"
+                                oninput="calculTotalCost(this.value, ${data.price}, ${data.id})"
+                                />
                             </td>
                             <td>
                                 ${data.price}
                             </td>
-                            
-                        `
-                        // append the tr element to the tbody
-                        document.querySelector('.table tbody').appendChild(tr);
-
-                    }
-                })
-            outer.innerHTML = '';
-
+                            <td class="text-end" id='total_cost_${data.id}' >
+                                0
+                            </td>
+                            <td class="text-end">
+                                <button 
+                                onclick="
+                                document.querySelector('.table tbody').removeChild(document.getElementById('${data.id}'));
+                                calculTotalCost(0, 0, ${data.id});
+                                total_cost = data.price * qty;
+                                grandTotal = document.getElementById("grand_total");
+                                grandTotal.textContent = grandTotal.textContent - total_cost;
+                                ;"
+                                class="btn btn-delete">
+                                    <img src="assets/img/icons/delete.svg" alt="img">
+                                </button>
+                            </td>
+                        `;
+                        // check if tr already exist
+                        var trs = document.querySelectorAll(".table tbody tr");
+                        var exist = false;
+                        trs.forEach(function(tr) {
+                            if (tr.id == data.id) {
+                                exist = true;
+                            }
+                        });
+                        if (!exist) {
+                            // append the tr element to the tbody
+                            document.querySelector(".table tbody").appendChild(tr);
+                        }
+                    };
+                });
+            //   outer.innerHTML = "";
         }
-    }
-
+    };
 </script>
