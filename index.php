@@ -1,46 +1,103 @@
-<?php
-include 'includes/database.php';
-include 'includes/goTopage.php';
-include 'includes/config.php';
-include 'includes/alert.php';
-include 'includes/functions.php';
-if (isset($_GET['export']) && $_GET['export'] == 'csv') {
-    generateCSV('categories');
-    exit;
-}
-
-?>
 <!DOCTYPE html>
-<?php include 'templates/components/header.php'; ?>
+<html>
+
+<head>
+    <?php include './templates/components/header.php' ?>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-form form {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .login-form h2 {
+            text-align: center;
+        }
+
+        label.error {
+            color: red;
+        }
+
+        label.success {
+            color: green;
+        }
+    </style>
+</head>
 
 <body>
-    <div id="global-loader">
-        <div class="whirly-loader"> </div>
-    </div>
-    <div class="main-wrapper">
-        <?php
-        include 'templates/components/navbar.php';
-        include 'templates/components/sidebare.php';
-        ?>
-        <div class="page-wrapper">
-            <div class="content container-fluid">
-                <?php
-                if (isset($_GET['page'])) {
-                    $page = $_GET['page'];
-                    if (in_array($page, $pages)) {
-                        gotoPage($page);
-                    } else {
-                        gotoPage('404_box');
-                    }
-                } else {
-                    gotoPage('dashboard');
-                }
-
-                ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 login-form">
+                <form id="loginForm" method="post">
+                    <h2>Login</h2>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    </div>
+                    <div id="message"></div>
+                </form>
             </div>
         </div>
+    </div>
 </body>
-<?php include 'templates/components/scripts.php'; ?>
-<?php ob_end_flush(); ?>
+<?php include './templates/components/scripts.php' ?>
+<script>
+    $(document).ready(function () {
+        $('#loginForm').submit(function (event) {
+            // prevent the default form submission behavior
+            event.preventDefault();
+            // get the form data
+            var formData = $('#loginForm').serialize();
+            console.log(formData)
+            // send an AJAX request to the server
+            $.ajax({
+                type: 'POST',
+                url: 'api/login.php',
+                data: formData,
+                success: function (response) {
+                    // handle the successful response
+                    $('#message')
+                        .html(`
+                            <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                ${JSON.parse(response).message}
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                            </div>
+                        `)
+                    setTimeout(() => {
+                        window.location.href = 'home.php'
+                    }, 2000);
+                },
+                error: function (response) {
+                    $('#message')
+                        .html(`
+                            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                                ${JSON.parse(response.responseText).message}
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                            </div>
+                        `)
+                }
+            });
+        });
+    });
+
+</script>
 
 </html>
