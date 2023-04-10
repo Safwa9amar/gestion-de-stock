@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2023 at 02:25 PM
+-- Generation Time: Apr 10, 2023 at 09:13 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -43,7 +43,16 @@ CREATE TABLE `achats` (
 
 INSERT INTO `achats` (`id`, `Supplier`, `Reference`, `Date`, `Status`, `Grand_Total`, `product_list`) VALUES
 (11, 1, 'REF 31', '2023-04-04', 1, 49300, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]'),
-(14, 2, 'REF 1', '2023-04-09', 2, 0, '[{\"product_id\":\"2\",\"qty\":\"0\",\"purchase_price\":\"1500\",\"total_cost\":\"0\"}]');
+(15, 1, 'REF 5', '2023-04-10', 1, 1300, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]'),
+(16, 1, 'REF 12', '2023-04-08', 4, 3500, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]'),
+(17, 1, 'REF 11', '2023-04-07', 5, 25000, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]'),
+(18, 2, 'REF 8', '2023-04-06', 1, 1500, '[{\"product_id\":\"2\",\"qty\":\"10\",\"purchase_price\":\"150\",\"total_cost\":\"1500\"},{\"product_id\":\"6\",\"qty\":\"15\",\"purchase_price\":\"250\",\"total_cost\":\"3750\"}]'),
+(19, 1, 'REF 23', '2023-04-09', 1, 7800, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]'),
+(20, 1, 'REF 17', '2023-04-05', 2, 9000, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]'),
+(21, 1, 'REF 32', '2023-04-10', 0, 0, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]'),
+(22, 1, 'REF 33', '2023-04-10', 0, 0, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]'),
+(23, 2, 'REF 34', '2023-04-10', 1, 125, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"2.99 ( DZD)\",\"total_cost\":\"20.93\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1.99 ( DZD)\",\"total_cost\":\"43.78\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"4.99 ( DZD)\",\"total_cost\":\"59.88\"}]'),
+(24, 1, 'REF 35', '2023-04-10', 1, 0, '[{\"product_id\":\"1\",\"qty\":\"7\",\"purchase_price\":\"100\",\"total_cost\":\"700\"},{\"product_id\":\"2\",\"qty\":\"22\",\"purchase_price\":\"1500\",\"total_cost\":\"33000\"},{\"product_id\":\"3\",\"qty\":\"12\",\"purchase_price\":\"1300\",\"total_cost\":\"15600\"}]');
 
 -- --------------------------------------------------------
 
@@ -63,7 +72,12 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `name`, `description`, `img`) VALUES
-(1, 'samsung', 'qsdsqd', 'qsdsqd');
+(1, 'Brand A', 'Description of Brand A', '6433b5f6a8c22.png'),
+(2, 'Brand B', 'Description of Brand B', '6433b5f6a8c22.png'),
+(3, 'Brand C', 'Description of Brand C', '6433b5f6a8c22.png'),
+(4, 'Brand D', 'Description of Brand D', '6433b5f6a8c22.png'),
+(5, 'Brand E', 'Description of Brand E', '6433b5f6a8c22.png'),
+(6, ' Brand 0A', 'Description of Brand A	', '6433b5f6a8c22.png');
 
 -- --------------------------------------------------------
 
@@ -84,7 +98,15 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `code`, `description`, `img`) VALUES
-(1, 'Computer', 'CT001', 'cc', '642c3a1e2531a.jpg');
+(1, 'Légumes', 'VEG', 'Une grande variété de légumes frais et de saison.', '6433b4b81683a.png'),
+(2, 'Fruits', 'FRU', 'Une large sélection de fruits frais et juteux.', '6433b4db8748c.png'),
+(3, 'Viande', 'MEAT', 'Des coupes de viande de qualité supérieure pour vos plats préférés.', '6433b4f9dfb49.png'),
+(4, 'Poisson', 'FISH', 'Des fruits de mer frais et durables pour une alimentation saine.', '6433b5646609d.png'),
+(5, 'Produits laitiers', 'DAIRY', 'Des produits laitiers frais et naturels pour votre santé.', '642ae01669c98.jpg'),
+(6, 'Boulangerie', 'BAK', 'Du pain frais et des pâtisseries délicieuses pour votre petit déjeuner.', '642ae01669c98.jpg'),
+(7, 'Céréales', 'CER', 'Des céréales et des grains pour une alimentation équilibrée.', '642ae01669c98.jpg'),
+(8, 'Boissons', 'BEV', 'Des boissons rafraîchissantes pour toutes les occasions.', '642ae01669c98.jpg'),
+(9, 'Snacks', 'SNK', 'Des snacks délicieux pour les petits creux.', '642ae01669c98.jpgg');
 
 -- --------------------------------------------------------
 
@@ -108,7 +130,7 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `code`, `phone`, `mail`, `city`, `address`, `img`) VALUES
-(2, 'hassani hamza', '0674020244', '0674020244', 'hassanih97@gmail.com', 1, 'citty hassani slimane', '643217ba54f74.jpg');
+(2, 'hassani hamza', '0674020244', '0674020244', 'hassanih97@gmail.com', 1, 'citty hassani slimane', '6433b65d450d9.png');
 
 -- --------------------------------------------------------
 
@@ -144,7 +166,7 @@ CREATE TABLE `products` (
   `SKU` varchar(255) NOT NULL,
   `unit` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
+  `price` float NOT NULL,
   `status` tinyint(1) NOT NULL,
   `img` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -155,11 +177,12 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` 
-(`id`, `name`, `category`, `brand`, `SKU`, `unit`, `qty`, `price`, `status`, `img`, `description`, `created_by`) VALUES
-(1, 'Pizza Base Tomate', 1, 1, 'f321321', 'Unit', 100, 100, 0, '642ae822777ab.jpg', 'zae aze aze aze', 'admin'),
-(2, 'astro', 1, 1, 'cc123', 'Choose Unit', 50, 1500, 0, '642aebb8aebfd.jpg', 'qweqweqwe', 'admin'),
-(3, 'Burger Cheese Steak maison', 1, 1, 'f321321', 'kg', 20, 1300, 1, '642f9ee81e8dd.jpg', 'weqweq', 'admin');
+INSERT INTO `products` (`id`, `name`, `category`, `brand`, `SKU`, `unit`, `qty`, `price`, `status`, `img`, `description`, `created_by`) VALUES
+(1, 'Apple', 1, 1, 'AP-1001', '1kg', 50, 2.99, 1, '6433b363286c7.jpg', 'Fresh and delicious apples.', 'admin'),
+(2, 'Carrot', 2, 2, 'FF-2001', '1kg', 30, 1.99, 1, '6433b3d7649fc.png', 'Organic carrots grown locally.', 'admin'),
+(3, 'Cheddar Cheese', 3, 3, 'KR-3001', '250g', 20, 4.99, 1, '6433b42db10a5.png', 'Sharp and creamy cheddar cheese.', 'admin'),
+(4, 'Beef', 4, 4, 'AB-4001', '1kg', 10, 8.99, 1, '6433b4496ff45.jpg', 'Juicy and tender beef cuts.', 'admin'),
+(5, 'Brown Rice', 5, 5, 'UB-5001', '1kg', 40, 3.99, 1, '6433b4753d180.png', 'Whole grain brown rice.', 'admin');
 
 -- --------------------------------------------------------
 
@@ -189,16 +212,19 @@ CREATE TABLE `sales` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `tel` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `img` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$LEKyEGFcZs04xWUdZr0SyeEh7l3zHIBRIf5HfiGZLlWcNcN6UeF6O');
+INSERT INTO `users` (`id`, `name`, `first_name`, `tel`, `email`, `password`, `img`) VALUES
+(1, 'admin', '', '', 'admin@gmail.com', '$2y$10$LEKyEGFcZs04xWUdZr0SyeEh7l3zHIBRIf5HfiGZLlWcNcN6UeF6O', '');
 
 -- --------------------------------------------------------
 
@@ -334,19 +360,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `achats`
 --
 ALTER TABLE `achats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `clients`
@@ -364,7 +390,7 @@ ALTER TABLE `fournisseurs`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `sales`
@@ -381,13 +407,6 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `brand` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `sales`
