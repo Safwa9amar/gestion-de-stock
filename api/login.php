@@ -5,9 +5,7 @@ include '../includes/database.php';
 include '../includes/functions.php';
 include '../includes/config.php';
 
-// if (isset($_SESSION['user'])) {
-//     header('location:home.php');
-// }
+
 $error_message = false;
 
 // handle form submit
@@ -41,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // create session and redirect to dashboard
                     $user_id = $user['id'];
                     $_SESSION['user'] = $user['name']; // set user session variable
-                    // sleep(2);
+                    sleep(2);
                     http_response_code(200);
 
                     echo '{"message":"connexion réussie"}';

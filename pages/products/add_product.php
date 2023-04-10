@@ -1,23 +1,22 @@
 <div class="content">
   <div class="page-header">
     <div class="page-title">
-      <h4>Product Add</h4>
-      <h6>Create new product</h6>
+      <h4>Ajouter un produit</h4>
+      <h6>Créer un nouveau produit</h6>
     </div>
   </div>
-
   <div class="card">
     <div class="card-body">
       <form action="" method="post" class="row" enctype="multipart/form-data">
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Product Name</label>
+            <label>Nom du produit</label>
             <input name="name" type="text" />
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Category</label>
+            <label>Catégorie</label>
             <select class="form-control" name="category">
               <?php
               $all_categories = getAllCategories();
@@ -28,10 +27,9 @@
             </select>
           </div>
         </div>
-
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Brand</label>
+            <label>Marque</label>
             <select class="form-control" name="brand">
               <?php
               $all_brands = getAllBrands();
@@ -58,7 +56,7 @@
 
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Quantity</label>
+            <label>Quantité</label>
             <input type="text" name="qty" />
           </div>
         </div>
@@ -72,13 +70,13 @@
 
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Price</label>
+            <label>Prix</label>
             <input type="text" name="price" />
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label> Status</label>
+            <label>Statut</label>
             <select class="form-control" name="status">
               <option value='1'>Disponible</option>
               <option value='0'>Non disponible</option>
@@ -87,7 +85,7 @@
         </div>
         <div class="col-lg-12">
           <div class="form-group">
-            <label> Product Image</label>
+            <label>Image du produit</label>
             <div class="image-upload">
               <input type="file" name="img" />
               <div class="image-uploads">
@@ -113,7 +111,7 @@
             $price = htmlspecialchars($_POST['price']);
             $status = htmlspecialchars($_POST['status']);
             //insert data into database using addRow function
-
+          
             $imgUploaded = uploadImg($_FILES['img'], $product_upload_dir);
 
             switch ($imgUploaded) {

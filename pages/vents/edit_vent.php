@@ -1,14 +1,28 @@
 <?php
 include 'includes/config.php';
-// getAllRows from fournisseurs table
-$fournisseurs = getAllRows('fournisseurs');
+// getAllRows from clients table
+$clients = getAllRows('clients');
 $achat_ref = generateReference('achats', 'Reference');
+
+if (isset($_GET['editRow'])) {
+    $id = $_GET['editRow'];
+    $achat = getRowById('achats', $id);
+    $achat_ref = $achat['Reference'];
+    $achat_date = $achat['Date'];
+    $achat_status = $achat['Status'];
+    $achat_supplier = $achat['Supplier'];
+    $achat_grand_total = $achat['Grand_Total'];
+    // 
+    $achat_product_list = $achat['product_list'];
+    $achat_product_list = json_decode($achat_product_list, true);
+}
+
 ?>
 <div class="content">
     <div class="page-header">
         <div class="page-title">
-            <h4>Purchase Add</h4>
-            <h6>Add/Update Purchase</h6>
+            <h4>Ajouter un achat</h4>
+            <h6>Ajouter/Modifier un achat</h6>
         </div>
     </div>
     <div class="card">
@@ -16,46 +30,52 @@ $achat_ref = generateReference('achats', 'Reference');
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Fournisseur</label>
-                        <div class="col-lg-10 col-sm-10 col-10">
-                            <input class="form-control" list="suppliers" type="text" />
-                            <datalist id="suppliers">
-                                <?php
-                                foreach ($fournisseurs as $fournisseur) {
-                                    echo "<option value='" . $fournisseur['id'] . "'> " . $fournisseur['name'] . " </option>";
-                                }
-                                ?>
-                            </datalist>
+                        <label>Nom du client</label>
+                        <div class="row">
+                            <div class="col-lg-10 col-sm-10 col-10">
+                                <select class="form-control" name="client" id="selectedClient">
+                                    <?php
+                                    foreach ($clients as $client) {
+                                        echo "<option value='" . $client['id'] . "'> " . $client['name'] . " </option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-sm-2 col-2 ps-0">
+                                <div class="add-icon">
+                                    <a href="?page=clients&sub_page=add_clients"><img src="assets/img/icons/plus1.svg"
+                                            alt="img"></a>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Purchase Date </label>
-                        <input value="<?php echo date('Y-m-d'); ?>" type="date" class="form-control" />
+                        <label>Date d'achat</label>
+                        <input value="<?php echo $achat_date ?>" type="date" class="form-control" />
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Reference No.</label>
+                        <label>N° de référence</label>
                         <input readonly value="<?php echo $achat_ref ?>" type="text" />
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
                         <label>Status</label>
-                        <select class="form-control">
-                            <option>Choose Status</option>
-                            <option>Complété</option>
-                            <option>En cours</option>
+                        <select name="status" class="form-control">
+                            <option value='1'>Choisir le statut</option>
+                            <option value="1">Terminé</option>
+                            <option value='0'>En cours</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Product Name</label>
+                        <label>Nom du produit</label>
                         <div class="input-groupicon">
                             <input autofocus list="datalistOptions" id="search_product" type="text"
                                 placeholder="Scan/Search Product by code and select..." />
@@ -73,21 +93,62 @@ $achat_ref = generateReference('achats', 'Reference');
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Product Name</th>
-                                <th>QTY</th>
-                                <th>Purchase Price(
+                                <th>Nom du produit</th>
+                                <th>Quantité</th>
+                                <th>Prix d'achat (
                                     <?php echo $currency ?>)
                                 </th>
-                                <th class="text-end">Total Cost (
+                                <th class="text-end">Coût total (
                                     <?php echo $currency ?>)
                                 </th>
                                 <th class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr id="tr_placehoder">
-                                <td colspan="4">Vous n'avez ajouté aucune donnée</td>
-                            </tr>
+                            <?php
+                            if (isset($achat_product_list)) {
+                                foreach ($achat_product_list as $product) {
+                                    $_product = getProduct($product['product_id']);
+                                    ?>
+                                    <tr id='<?php echo $_product['id'] ?>'>
+
+                                        <td id='<?php echo $_product['id'] ?>'>
+                                            <a class="product-img">
+                                                <img src="<?php echo $product_upload_dir . $_product['img'] ?>" alt="product">
+                                            </a>
+                                            <?php echo $_product['name'] ?>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" min="1" max="250" style="width: 100px;"
+                                                value="<?php echo $product['qty'] ?>"
+                                                oninput="calculTotalCost(this.value, <?php echo $_product['price'] ?>, <?php echo $_product['id'] ?>)" />
+                                        </td>
+                                        <td>
+                                            <?php echo $_product['price'] ?> (
+                                            <?php echo $currency ?>)
+                                        </td>
+                                        <td class="text-end" id='total_cost_<?php echo $_product['id'] ?>'>
+                                            <?php echo $product['total_cost'] ?>
+                                        </td>
+                                        <td class="text-end">
+                                            <button onclick="
+                                     (function() {
+                                         var grand_total = parseFloat(document.getElementById('grand_total').innerText);
+                                         var total_cost = parseFloat(document.getElementById('total_cost_<?php echo $_product['id'] ?>').innerText);
+                                         document.getElementById('grand_total').innerText = grand_total - total_cost;
+                                         document.querySelector('.table tbody').removeChild(document.getElementById('<?php echo $_product['id'] ?>'));
+    
+                                    })()
+                                    ;" class="btn btn-delete">
+                                                <img src="assets/img/icons/delete.svg" alt="img">
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <?php
+                                }
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -98,8 +159,19 @@ $achat_ref = generateReference('achats', 'Reference');
                         <ul>
                             <li class="total">
                                 <h4>Grand Total</h4>
-                                <h5 id="grand_total">0.00
-                                    <?php echo $currency ?>
+                                <h5 id="grand_total">
+
+                                    <?php
+                                    if (isset($achat_product_list)) {
+                                        $total = 0;
+                                        foreach ($achat_product_list as $product) {
+                                            $total += $product['total_cost'];
+                                        }
+                                        echo $total;
+                                    } else {
+                                        echo "0";
+                                    }
+                                    echo ' ' . $currency ?>
                                 </h5>
                             </li>
                         </ul>
@@ -122,11 +194,11 @@ $achat_ref = generateReference('achats', 'Reference');
             return row.qty != "" && row.product_id != "";
         });
         // get selected supplier
-        var supplier = document.querySelector("input[list='suppliers']").value;
+        var supplier = document.querySelector("#selectedClient").value;
         // get purchase date
         var purchase_date = document.querySelector("input[type='date']").value;
         // get purchase status
-        var status = document.querySelector("select").value;
+        var status = document.querySelectorAll("select")[1].value;
 
         var ref = '<?php echo $achat_ref ?>'
         // create formData object
@@ -138,8 +210,8 @@ $achat_ref = generateReference('achats', 'Reference');
         formData.append("ref", ref);
         // apend grand total
         formData.append("grand_total", document.getElementById("grand_total").innerText);
-        if (data.length === 0) return
-        fetch("api/achats.php?add", {
+
+        fetch("api/achats.php?update=<?php echo $_GET['editRow'] ?>", {
             method: "POST",
             body: formData
         }).then(function (response) {
@@ -152,9 +224,6 @@ $achat_ref = generateReference('achats', 'Reference');
             }
         });
     }
-
-    // tr_placehoder
-    var tr_placehoder = document.getElementById("tr_placehoder");
 
     // calculTotalCost function
 
@@ -209,7 +278,6 @@ $achat_ref = generateReference('achats', 'Reference');
         var outer = document.getElementById("datalistOptions");
         // clear the list
         if (search.length > 0) {
-            tr_placehoder.style.display = "none";
             fetch(url + "&search=" + search)
                 .then((response) => response.json())
                 .then((data) => {
@@ -267,6 +335,7 @@ $achat_ref = generateReference('achats', 'Reference');
                         `;
                         // check if tr already exist
                         var trs = document.querySelectorAll(".table tbody tr");
+                        console.log(trs);
                         var exist = false;
                         trs.forEach(function (tr) {
                             if (tr.id == data.id) {
@@ -283,5 +352,4 @@ $achat_ref = generateReference('achats', 'Reference');
         }
     };
     // get purchase data
-
 </script>

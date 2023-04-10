@@ -1,5 +1,7 @@
 <?php
 // create array of routes 
+session_start();
+
 $routes = [
     'products' => 'products',
     'categories' => 'categories',

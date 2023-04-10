@@ -6,8 +6,8 @@ if (isset($_GET['sub_page'])) {
         include "vents/add_sales.php";
     } elseif ($page == "list_sales") {
         include "vents/list_sales.php";
-    } elseif ($page == "invoice_list") {
-        include "vents/invoice_list.php";
+    } elseif ($page == "edit_vent") {
+        include "vents/edit_vent.php";
     } else {
         include "404_box.php";
     }

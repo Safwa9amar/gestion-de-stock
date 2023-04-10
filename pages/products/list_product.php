@@ -9,15 +9,15 @@ if (isset($_GET['deleteRow']) && $is_logged) {
 
 $table_head = '
   <tr>
-      <th>Product Name</th>
-      <th>SKU</th>
-      <th>Category </th>P
-      <th>Brand</th>
-      <th>price</th>
-      <th>Unit</th>
-      <th>Qty</th>
-      <th>Created By</th>
-      <th>Action</th>
+    <th>Nom du produit</th>
+    <th>SKU</th>
+    <th>Catégorie</th>
+    <th>Marque</th>
+    <th>Prix</th>
+    <th>Unité</th>
+    <th>Qté</th>
+    <th>Créé par</th>
+    <th>Action</th>
   </tr>
     ';
 ?>
@@ -25,12 +25,12 @@ $table_head = '
 <div class="content">
   <div class="page-header">
     <div class="page-title">
-      <h4>Product List</h4>
-      <h6>Manage your products</h6>
+      <h4>Liste des produits</h4>
+      <h6>Gérez vos produits</h6>
     </div>
     <div class="page-btn">
       <a href="?page=produits&sub_page=add_product" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img"
-          class="me-1">Add New Product</a>
+          class="me-1">Ajouter un nouveau produit</a>
     </div>
   </div>
 

@@ -8,6 +8,8 @@
         }
     },
     "require": {
-        "picqer/php-barcode-generator": "^2.2"
+        "picqer/php-barcode-generator": "^2.2",
+        "dsiddharth2/php-zxing": "^1.0",
+        "dompdf/dompdf": "^2.0"
     }
 }

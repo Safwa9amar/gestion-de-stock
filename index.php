@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (isset($_SESSION['user'])) {
+    header('location:home.php');
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -49,10 +57,10 @@
                         <label>Password</label>
                         <input type="password" class="form-control" name="password">
                     </div>
+                    <div id="message"></div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                     </div>
-                    <div id="message"></div>
                 </form>
             </div>
         </div>
@@ -62,11 +70,16 @@
 <script>
     $(document).ready(function () {
         $('#loginForm').submit(function (event) {
+            // get submit btn 
+            var submitBtn = $(this).find('button[type="submit"]');
+            let loader = `
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            `
             // prevent the default form submission behavior
             event.preventDefault();
             // get the form data
             var formData = $('#loginForm').serialize();
-            console.log(formData)
+            submitBtn.html(loader + 'Loading...');
             // send an AJAX request to the server
             $.ajax({
                 type: 'POST',
@@ -74,6 +87,7 @@
                 data: formData,
                 success: function (response) {
                     // handle the successful response
+                    submitBtn.html('Login');
                     $('#message')
                         .html(`
                             <div class='alert alert-success alert-dismissible fade show' role='alert'>

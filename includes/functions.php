@@ -210,7 +210,7 @@ function generateReference($table, $column)
     $result = mysqli_query($connection, $query);
     $row = mysqli_fetch_assoc($result);
     $reference = $row[$column];
-    $reference = substr($reference, 1);
+    $reference = substr($reference, 4);
     $reference = (int) $reference;
     $reference++;
     $reference = "REF " . $reference;

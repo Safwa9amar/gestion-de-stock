@@ -46,6 +46,9 @@ if (isset($_GET['logout'])) {
         </div>
 </body>
 <?php include 'templates/components/scripts.php'; ?>
-<?php ob_end_flush(); ?>
-
+<script>
+    // $(document).on('DOMContentLoaded',function () {
+    //     console.clear()
+    // })
+</script>
 </html>

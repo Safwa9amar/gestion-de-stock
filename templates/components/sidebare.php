@@ -7,7 +7,7 @@ $sub_page = $_GET['sub_page'] ?? '';
     <div id="sidebar-menu" class="sidebar-menu">
       <ul>
         <li class="active">
-          <a href="index.html"><img src="assets/img/icons/dashboard.svg" alt="img" /><span>
+          <a href="./"><img src="assets/img/icons/dashboard.svg" alt="img" /><span>
               Dashboard</span>
           </a>
         </li>
@@ -46,7 +46,7 @@ $sub_page = $_GET['sub_page'] ?? '';
             </li>
             <!-- <li><a href="importproduct.html">Import Products</a></li> -->
             <li>
-              <a href="?page=produits&sub_page=import_product">Imprimer le code-barres</a>
+              <a href="?page=produits&sub_page=print_barecode">Imprimer le code-barres</a>
             </li>
           </ul>
         </li>
@@ -59,19 +59,19 @@ $sub_page = $_GET['sub_page'] ?? '';
               <a href="?page=ventes&sub_page=list_sales"
                 class="<?php echo $sub_page == 'list_sales' ? 'active' : '' ?>">Liste des ventes</a>
             </li>
-            <li>
+            <!-- <li>
               <a href="?page=ventes&sub_page=add_sales"
                 class="<?php echo $sub_page == 'add_sales' ? 'active' : '' ?>">POS</a>
-            </li>
+            </li> -->
             <li>
               <a href="?page=ventes&sub_page=add_sales"
-                class="<?php echo $sub_page == 'invoice_list' ? 'active' : '' ?>">Nouvelles ventes</a>
+                class="<?php echo $sub_page == 'add_sales' ? 'active' : '' ?>">Nouvelles ventes</a>
             </li>
             <!-- <li><a href="salesreturnlists.html">Sales Return List</a></li> -->
             <!-- <li><a href="createsalesreturns.html">Nouveau retour de vente</a></li> -->
           </ul>
         </li>
-        <li class="submenu">
+        <!-- <li class="submenu">
           <a href="javascript:void(0);"><img src="assets/img/icons/purchase1.svg" alt="img" /><span>
               Achat</span>
             <span class="menu-arrow"></span></a>
@@ -84,9 +84,8 @@ $sub_page = $_GET['sub_page'] ?? '';
               <a href="?page=achats&sub_page=add_achats"
                 class="<?php echo $sub_page == 'add_achats' ? 'active' : '' ?>">Ajouter un achat</a>
             </li>
-            <!-- <li><a href="importpurchase.html">Import Purchase</a></li> -->
           </ul>
-        </li>
+        </li> -->
 
         <li class="submenu">
           <a href="javascript:void(0);"><img src="assets/img/icons/users1.svg" alt="img" /><span>
